@@ -77,5 +77,6 @@
 	<script name="ActionSpell" file="scripts/manager_action_spell.lua" />
 	<script name="CombatManager2" file="scripts/manager_combat2.lua" />
 	<script name="Json" file="scripts/json.lua" />
-	
+
+	<script name="EffectManagerWitcher" file="scripts/manager_effect_witcher.lua" />
 </root>
