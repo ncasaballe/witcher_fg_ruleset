@@ -44,6 +44,14 @@ function getQuenStrength(nodeCTEntry)
 	return nQuenLevel;
 end
 
+function spendQuenStrength(nodeCTEntry, nValue)
+	--local effectQuen = {};
+	--for _,nodeEffect in pairs(DB.getChildren(nodeCTEntry, "effects")) do
+
+	--end
+	return nValue;
+end
+
 --[[function getEffectsString(nodeCTEntry, bPublicOnly)
 	local aOutputEffects = {};
 	

@@ -173,8 +173,21 @@ function applyDamage(rSource, rTarget, bSecret, nTotal, rRoll)
 	--	msg.text = msg.text .. " - [" .. sEffects .. "]";
 	-- end
 
+	--local ctTarget = ActorManager.getCTNode(rTarget);
+
 	local nQuen = EffectManagerWitcher.getQuenStrength(ActorManager.getCTNode(rTarget));
-	Debug.chat("Quen defends " .. nQuen);
+	Debug.console("Quen defends " .. nQuen);
+
+	if nFinalDamage <= nQuen then
+		nQuen = EffectManagerWitcher.spendQuenStrength(ActorManager.getCTNode(rTarget), nFinalDamage)
+		Comm.deliverChatMessage({font = "msgfont", icon = "portrait_gm_token", text="Quen absorbed all dmg. " .. nQuen .. " points remain."});
+		return;
+	else
+		nFinalDamage = nFinalDamage - nQuen;
+		EffectManagerWitcher.spendQuenStrength(ActorManager.getCTNode(rTarget), nQuen);
+		Comm.deliverChatMessage({font = "msgfont", icon = "portrait_gm_token", text="Quen absorbed " .. nQuen .. " points of dmg and dissolved."});
+	end
+
 	--[[local sEffectsF = EffectManager.getEffectsString(ActorManager.getCTNode(rTarget), false);
 	Debug.chat(sEffectsF);
 
