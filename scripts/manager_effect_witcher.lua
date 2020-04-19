@@ -45,11 +45,42 @@ function getQuenStrength(nodeCTEntry)
 end
 
 function spendQuenStrength(nodeCTEntry, nValue)
-	--local effectQuen = {};
-	--for _,nodeEffect in pairs(DB.getChildren(nodeCTEntry, "effects")) do
+	local effectQuen = {};
 
-	--end
-	return nValue;
+	for _,nodeEffect in pairs(DB.getChildren(nodeCTEntry, "effects")) do
+		local sEffectLabel = DB.getValue(nodeEffect, "label", "");
+		if string.find(sEffectLabel,"QUEN") ~= nil then
+			effectQuen = nodeEffect;
+		end
+	end
+
+	local val = "";
+	if effectQuen ~= nil then
+		
+		
+		local name="";
+		for token in string.gmatch(DB.getValue(effectQuen, "label", ""), "[^%s]+") do
+			if(name=="") then
+				name = ".";
+			else
+				if(val=="") then
+					val = token;
+				end
+			end
+		end
+		
+		--val = string.gmatch(DB.getValue(effectQuen, "label", ""), "[^%s]+")[1];
+		Debug.console("reducing quen value: " .. val);
+		val = val - nValue;
+
+		if val > 0 then
+			DB.setValue(effectQuen, "label", "string", "QUEN " .. val);
+		else
+			effectQuen.delete();
+		end
+	end
+
+	return val;
 end
 
 --[[function getEffectsString(nodeCTEntry, bPublicOnly)
