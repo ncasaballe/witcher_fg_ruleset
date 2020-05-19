@@ -13,7 +13,7 @@
 	This ruleset is a fan made project and not an official product from Talsorian Inc. nor CD Projekt Red.\r\r" font="emotefont" icon="rulesetlogo" />
 	<!-- Attributes -->
 	<description>
-		<text>The Witcher</text>
+		<text>The Witcher development</text>
 		<author>Althea, U~man, Laurent 'Heedio' WITZ</author>
 		<website></website>
 	</description>
@@ -77,5 +77,6 @@
 	<script name="ActionSpell" file="scripts/manager_action_spell.lua" />
 	<script name="CombatManager2" file="scripts/manager_combat2.lua" />
 	<script name="Json" file="scripts/json.lua" />
-	
+
+	<script name="EffectManagerWitcher" file="scripts/manager_effect_witcher.lua" />
 </root>

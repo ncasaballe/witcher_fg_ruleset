@@ -165,6 +165,48 @@ function applyDamage(rSource, rTarget, bSecret, nTotal, rRoll)
 		Debug.console("no strong attack multiplier : ", nFinalDamage);
 	end
 
+
+	-- after STRONG modifier but before anything else, check QUEN
+	--local sEffects = EffectManager.getEffectsString(ActorManager.getCTNode(rTarget), false);
+	--EffectManager.getEffectsString(rTarget.sCreatureNode, true);
+	-- if sEffects ~= "" then
+	--	msg.text = msg.text .. " - [" .. sEffects .. "]";
+	-- end
+
+	--local ctTarget = ActorManager.getCTNode(rTarget);
+
+	local nQuen = EffectManagerWitcher.getQuenStrength(ActorManager.getCTNode(rTarget));
+	Debug.console("Quen defends " .. nQuen);
+
+	if nFinalDamage <= nQuen then
+		nQuen = EffectManagerWitcher.spendQuenStrength(ActorManager.getCTNode(rTarget), nFinalDamage)
+		Comm.deliverChatMessage({font = "msgfont", icon = "portrait_gm_token", text="Quen absorbed all dmg. " .. nQuen .. " points remain."});
+		return;
+	else
+		nFinalDamage = nFinalDamage - nQuen;
+		EffectManagerWitcher.spendQuenStrength(ActorManager.getCTNode(rTarget), nQuen);
+		Comm.deliverChatMessage({font = "msgfont", icon = "portrait_gm_token", text="Quen absorbed " .. nQuen .. " points of dmg and dissolved."});
+	end
+
+	--[[local sEffectsF = EffectManager.getEffectsString(ActorManager.getCTNode(rTarget), false);
+	Debug.chat(sEffectsF);
+
+	local effects = EffectManager.parseEffectCompSimple(sEffectsF);
+	
+
+
+	Debug.chat("affected by:");
+	for _,efect in ipairs(effects) do
+		Debug.chat("a");
+		Debug.chat(efect);
+	end
+	Debug.chat("----------");
+
+	--for k in effects do Debug.Chat(k) end
+	--Debug.chat(sEffects);
+	--Qs'QUEN 20; [D: 9]'
+	--]]
+
 	-- LOCATION ?
 	local sLocation = "";
 	local sIsAimed = "false";
